@@ -10,10 +10,8 @@ from .password import db_password
 
 def dbconfig():
   try:
-    CONNECTION_STRING = f"mongodb+srv://akash_raj_st:{db_password}@cluster0.1wid5.mongodb.net/?retryWrites=true&w=majority"
-    
+    CONNECTION_STRING = "mongodb://localhost:27017"
     client = MongoClient(CONNECTION_STRING)
-    dblist = client.list_database_names()
     return client
 
   except:

@@ -38,21 +38,38 @@ def retrieveEntries(mp, ds, search, decryptPassword = False, passwordType="passw
 		printc("[yellow][-][/yellow] No results for the search")
 		return
 
+
+	console = Console()
 	if (decryptPassword and len(results)>1) or (not decryptPassword):
 		if decryptPassword:
 			printc("[yellow][-][/yellow] More than one result found for the search, therefore not extracting the password. Be more specific.")
 		table = Table(title="Results")
 		table.add_column("Site Name")
-		table.add_column("URL",)
 		table.add_column("Email")
 		table.add_column("Username")
 		table.add_column("Password")
 
 		for i in results:
-			table.add_row(i["site"], i["url"], i['email'], i["username"], "{hidden}")
+			table.add_row(i["site"], i['email'], i["username"], "{hidden}")
 
-		console = Console()
+		
 		console.print(table)
+
+	if not decryptPassword and (len(results)==1):
+		table2 = Table()
+		table2.add_column("KEY")
+		table2.add_column("Value")
+
+		if len(results[0]["url"])>0:
+			table2.add_row("url", results[0]["url"])
+
+		for i in results[0]["additional"]:
+			table2.add_row(i, results[0]["additional"][i])
+
+		for i in results[0]["passwords"]:
+			table2.add_row(i, "{hidden}")
+
+		console.print(table2)
 
 	if decryptPassword and len(results)==1:
 		# Compute master key

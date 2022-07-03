@@ -64,14 +64,15 @@ def main():
 		if args.name == None or args.url == None or args.user == None:
 			if args.name == None:
 				printc("[red][!][/red] Site Name (-s) required ")
-			if args.url == None:
-				printc("[red][!][/red] Site URL (-l) required ")
 			if args.user == None:
 				printc("[red][!][/red] Site USER (-u) required ")
 			return
 
 		if args.email == None:
 			args.email = ""
+		
+		if args.url == None:
+			args.url = ""
 
 		res = inputAndValidateMasterPassword()
 		data = {}
