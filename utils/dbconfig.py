@@ -6,7 +6,6 @@ from rich.console import Console
 console = Console()
 
 import sys
-from .password import db_password
 
 def dbconfig():
   try:
