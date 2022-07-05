@@ -42,12 +42,12 @@ def addEntry(mp, ds, data):
 	
 	printc("[green][+][/green] Added entry ")
 
-def get_password(mp, salt, type):
+def get_password(mp, ds, type):
 	# Input Password
 	password = getpass(f"Password for {type}: ")
 
 	# compute master key
-	mk = computeMasterKey(mp, salt)
+	mk = computeMasterKey(mp, ds)
 
 	# encrypt password with mk
 	encrypted = utils.aesutil.encrypt(key=mk, source=password, keyType="bytes")

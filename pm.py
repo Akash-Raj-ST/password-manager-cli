@@ -8,6 +8,7 @@ import pyperclip
 import utils.add
 import utils.retrieve
 import utils.generate
+import utils.update
 from utils.dbconfig import dbconfig
 
 from rich import print as printc
@@ -99,7 +100,7 @@ def main():
 
 			utils.add.addEntry(res[0], res[1], data)
 
-	if args.option in ["extract","e"]:
+	elif args.option in ["extract","e"]:
 		# if args.name == None and args.url == None and args.email == None and args.user == None:
 		# 	# retrieve all
 		# 	printc("[red][!][/red] Please enter at least one search field (sitename/url/email/username)")
@@ -122,8 +123,23 @@ def main():
 			else:
 				utils.retrieve.retrieveEntries(res[0],res[1],search,decryptPassword = args.copy)
 
+	elif args.option in ["update","up"]:
+		res = inputAndValidateMasterPassword()
 
-	if args.option in ["generate","g"]:
+		search = {}
+		if args.name is not None:
+			search["site"] = args.name
+		if args.url is not None:
+			search["url"] = args.url
+		if args.email is not None:
+			search["email"] = args.email
+		if args.user is not None:
+			search["username"] = args.use
+
+		if res is not None:
+			utils.update.updateEntry(res[0], res[1], search)
+
+	elif args.option in ["generate","g"]:
 		if args.length == None:
 			printc("[red][+][/red] Specify length of the password to generate (--length)")
 			return
